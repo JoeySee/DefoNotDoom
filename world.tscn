@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://ce6v8mw7ptk72"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_fjry1"]
+[ext_resource type="PackedScene" uid="uid://c6yhfem2l85tm" path="res://player.tscn" id="1_sw8v1"]
+[ext_resource type="PackedScene" uid="uid://60lak74elk8h" path="res://room_2.tscn" id="4_cl1vm"]
+[ext_resource type="PackedScene" uid="uid://cqogjr2c680r4" path="res://room_1.tscn" id="4_ifhqm"]
+[ext_resource type="PackedScene" uid="uid://cpmmjd0j7qe14" path="res://room_3.tscn" id="4_p73hy"]
+[ext_resource type="PackedScene" uid="uid://r2v728mwm0xx" path="res://room_4.tscn" id="7_34jtd"]
+
+[sub_resource type="Environment" id="Environment_ht4a6"]
+
+[node name="World" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00521708, -0.0247092, 0.0176682)
+script = ExtResource("1_fjry1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ht4a6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.99994, 9.31267e-10, 0.0109605, 0.00677597, 0.786008, 0.618179, -0.00861505, 0.618216, -0.785961, -0.0118575, 2.80796, -3.31162)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_sw8v1")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 27.7559, 37.9279, -321.459)
+gravity = 120
+speed = 30
+
+[node name="Room1" parent="." instance=ExtResource("4_ifhqm")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 9.30366, 0.0247092, -244.357)
+
+[node name="Room2" parent="." instance=ExtResource("4_cl1vm")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 9.30366, 0.0247092, -85.5723)
+
+[node name="Room3" parent="." instance=ExtResource("4_p73hy")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 9.30366, 0.0247092, 71.6215)
+
+[node name="Room4" parent="." instance=ExtResource("7_34jtd")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 9.30366, 0.0247092, 231.622)

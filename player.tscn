@@ -1,0 +1,210 @@
+[gd_scene load_steps=18 format=3 uid="uid://c6yhfem2l85tm"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ex8me"]
+[ext_resource type="Texture2D" uid="uid://cqgoaj1yma8f7" path="res://assets/sword-Sheet.png" id="2_xpccs"]
+[ext_resource type="AudioStream" uid="uid://cjfporlndun03" path="res://assets/revolver_shot1.wav" id="3_03axq"]
+[ext_resource type="Texture2D" uid="uid://bn8txu4vmfb21" path="res://assets/win.png" id="3_81r0d"]
+[ext_resource type="Texture2D" uid="uid://c5ta7fe056lrk" path="res://assets/loss.png" id="4_h8nbh"]
+[ext_resource type="Texture2D" uid="uid://cwmyas7ci7y0e" path="res://assets/menuBtn.png" id="5_1vgkc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0m4ha"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6skab"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(0, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tytip"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(0, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv8cb"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(240, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g44n5"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(480, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orwc1"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(720, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdqkc"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(960, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx6hx"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(1200, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kglf6"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(1440, 0, 240, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shs7a"]
+atlas = ExtResource("2_xpccs")
+region = Rect2(1680, 0, 240, 135)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_733fi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6skab")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tytip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv8cb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g44n5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orwc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdqkc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx6hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kglf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shs7a")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 20.0
+}]
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+collision_layer = 6
+collision_mask = 3
+script = ExtResource("1_ex8me")
+gravity = 10
+speed = 50
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0m4ha")
+
+[node name="Head" type="Node3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -1)
+collision_mask = 3
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SwordBase" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/SwordBase"]
+position = Vector2(19, -284)
+scale = Vector2(4.8, 4.8)
+sprite_frames = SubResource("SpriteFrames_733fi")
+animation = &"shoot"
+autoplay = "idle"
+frame = 7
+frame_progress = 1.0
+
+[node name="Crosshair" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndScreen" type="Control" parent="CanvasLayer"]
+visible = false
+top_level = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/EndScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -4.25
+anchor_top = -2.125
+anchor_right = 5.05
+anchor_bottom = 3.525
+offset_right = -186.0
+offset_bottom = -113.0
+scale = Vector2(2, 2)
+metadata/_edit_use_anchors_ = true
+
+[node name="victory" type="TextureRect" parent="CanvasLayer/EndScreen/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 44.5
+offset_top = 3.0
+offset_right = 404.5
+offset_bottom = 183.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_81r0d")
+
+[node name="death" type="TextureRect" parent="CanvasLayer/EndScreen/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 45.5
+offset_top = 6.5
+offset_right = 405.5
+offset_bottom = 186.5
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_h8nbh")
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/EndScreen/Panel"]
+layout_mode = 0
+offset_left = 59.5
+offset_top = 68.5
+offset_right = 419.5
+offset_bottom = 248.5
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("5_1vgkc")
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_03axq")
+bus = &"SFX"
+
+[connection signal="animation_finished" from="CanvasLayer/SwordBase/AnimatedSprite2D" to="." method="shoot_anim_done"]
+[connection signal="pressed" from="CanvasLayer/EndScreen/Panel/TextureButton" to="." method="change_to_menu"]
